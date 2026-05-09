@@ -57,16 +57,17 @@ export default function App() {
 
   /* Load legacy scripts in order, then boot the tree */
   useEffect(() => {
+    const base = import.meta.env.BASE_URL;
     const scripts = [
-      '/jquery.min.js',
-      '/jscex.min.js',
-      '/jscex-parser.js',
-      '/jscex-jit.js',
-      '/jscex-builderbase.min.js',
-      '/jscex-async.min.js',
-      '/jscex-async-powerpack.min.js',
-      '/function.js',
-      '/love.js',
+      `${base}jquery.min.js`,
+      `${base}jscex.min.js`,
+      `${base}jscex-parser.js`,
+      `${base}jscex-jit.js`,
+      `${base}jscex-builderbase.min.js`,
+      `${base}jscex-async.min.js`,
+      `${base}jscex-async-powerpack.min.js`,
+      `${base}function.js`,
+      `${base}love.js`,
     ];
 
     const loaded = [];

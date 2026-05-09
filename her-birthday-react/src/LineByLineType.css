@@ -1,0 +1,32 @@
+.lbl-type {
+  display: flex;
+  flex-direction: column;
+}
+
+.lbl-type__line {
+  margin: 0;
+  padding: 0;
+  min-height: 1.4em;
+}
+
+/* Completed lines — full opacity */
+.lbl-type__line--done {
+  opacity: 1;
+}
+
+/* Active (currently typing) line */
+.lbl-type__line--active {
+  opacity: 1;
+}
+
+/* Cursor */
+.lbl-type__cursor {
+  display: inline-block;
+  margin-left: 1px;
+  opacity: 1;
+}
+
+.lbl-type__cursor--end {
+  display: inline-block;
+  margin-left: 1px;
+}

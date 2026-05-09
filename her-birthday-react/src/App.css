@@ -1,0 +1,537 @@
+/* ─── FONTS ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=DM+Mono:wght@300;400&display=swap');
+
+/* ─── RESET ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:          #03000d;
+  --accent:      #c2406e;
+  --accent-soft: #ee7fa8;
+  --text:        #f0eaf8;
+  --text-dim:    #9089aa;
+  --text-muted:  #524d66;
+
+  --ff: 'Inter', system-ui, sans-serif;
+  --ff-mono: 'DM Mono', monospace;
+  --ff-letter: 'Snell Roundhand', 'Segoe Script', 'Apple Chancery', 'Lucida Handwriting', cursive;
+}
+
+/* ─── BASE ───────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+body.unlocked { overflow-y: auto; }
+a { color: var(--text); }
+
+/* ─── STARS ──────────────────────────────────────────── */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation: twinkle var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: var(--max-op, 0.4); }
+}
+
+/* ─── HERO ───────────────────────────────────────────── */
+#hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #03000d; /* fallback before WebGL */
+}
+
+/* Grainient — z:0, absolute fill (set in Grainient.css) */
+
+/* Deep vignette to darken edges and ground the hero */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 85% 70% at 50% 50%,
+      transparent 35%,
+      rgba(3, 0, 13, 0.75) 100%
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── CANVAS WRAPPER ─────────────────────────────────── */
+#wrap {
+  position: relative;
+  width: 1100px;
+  height: 680px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+#canvas {
+  display: block;
+  width: 1100px;
+  height: 680px;
+  transform: translateZ(0);
+  will-change: transform;
+  background: transparent !important;
+  touch-action: none;  /* prevent mobile scroll/zoom on canvas */
+}
+
+#canvas.hand { cursor: pointer; }
+
+/* ─── TEXT OVERLAY — TextType component ──────────────── */
+#text {
+  position: absolute;
+  left: 60px;
+  top: 20px;
+  width: 600px;
+  z-index: 10;
+  pointer-events: none;
+
+  /* Fade the entire text block in when it mounts */
+  animation: textBlockIn 0.6s ease-out forwards;
+}
+
+@keyframes textBlockIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* The TextType component itself */
+.hero-typewriter {
+  font-family: var(--ff);
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+/* Specific line styling */
+.hero-typewriter .line-0 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.2rem;
+  font-weight: normal;
+  color: #FF6EB4;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 15px rgba(255, 110, 180, 0.3);
+}
+
+.hero-typewriter .line-1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #FFF0F5;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 20px #c026d3;
+}
+
+.hero-typewriter .line-2,
+.hero-typewriter .line-3,
+.hero-typewriter .line-4,
+.hero-typewriter .line-5,
+.hero-typewriter .line-6 {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.hero-typewriter .line-7,
+.hero-typewriter .line-8,
+.hero-typewriter .line-9,
+.hero-typewriter .line-10 {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #FFFFFF;
+  line-height: 1.8;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.hero-typewriter .line-11 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  margin-top: 0.8rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.hero-typewriter .line-12 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.hero-typewriter .line-13 {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  margin-top: 0.5rem;
+  text-shadow: 0 0 8px #f0abfc, 0 0 30px #a855f7, 0 0 2px #ffffff;
+}
+
+/* Cursor styling */
+.hero-typewriter .lbl-type__cursor {
+  color: var(--accent-soft);
+  font-weight: 400;
+  text-shadow: 0 0 16px rgba(238, 127, 168, 0.9);
+}
+
+/* ─── CLOCK ──────────────────────────────────────────── */
+#clock-box {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+#clock {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── CLICK HINT ─────────────────────────────────────── */
+.click-hint {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  animation: fadeHint 2s ease 4s forwards;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes fadeHint {
+  to { opacity: 1; }
+}
+
+/* ─── SCROLL ARROW ───────────────────────────────────── */
+.scroll-arrow {
+  position: absolute;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: arrowFade 1s ease 0.6s forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.scroll-arrow.show { display: flex; }
+
+@keyframes arrowFade {
+  to { opacity: 0.9; }
+}
+
+.scroll-arrow span {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.scroll-arrow svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--accent-soft);
+  stroke-width: 1.5;
+  fill: none;
+  animation: arrowBounce 2s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+/* ─── GALLERY SECTION ────────────────────────────────── */
+#gallery-section {
+  display: none;
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg) 0%, #0d0525 40%, #070210 100%);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity  0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#gallery-section.visible { display: block; }
+#gallery-section.fade-in { opacity: 1; transform: translateY(0); }
+
+/* ─── GALLERY INTRO ──────────────────────────────────── */
+.gallery-intro {
+  text-align: center;
+  padding: 90px 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.gallery-intro h2 {
+  font-family: var(--ff);
+  font-size: clamp(22px, 3vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 22px;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-soft) 50%, #c084fc 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 7s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.gallery-intro .divider {
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 0 auto 22px;
+  opacity: 0.65;
+}
+
+.gallery-intro p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-dim);
+  letter-spacing: 0.01em;
+  line-height: 1.85;
+}
+
+/* ─── DOME WRAPPER ───────────────────────────────────── */
+.dome-wrap {
+  width: 100%;
+  height: 88vh;
+  position: relative;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+.birthday-footer {
+  display: none;
+  text-align: center;
+  padding: 52px 20px 68px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.birthday-footer.visible { display: block; }
+
+.birthday-footer p {
+  font-family: var(--ff);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ─── ERROR ──────────────────────────────────────────── */
+#error {
+  display: none;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 40px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ENVELOPE / LETTER SECTION
+   ═══════════════════════════════════════════════════════ */
+.letter-section {
+  width: 100vw;
+  padding: 100px 20px 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #07021a 0%, #0a0320 50%, var(--bg) 100%);
+  position: relative;
+  overflow: visible;
+}
+
+.letter-section__intro {
+  text-align: center;
+  margin-bottom: 56px;
+  animation: fadeUp 0.8s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.letter-section__label {
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.letter-section__divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 16px auto 0;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESTORED MOBILE RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+
+/* Tablets / small desktops */
+@media (max-width: 1200px) {
+  #wrap {
+    transform: scale(0.7);
+    transform-origin: center center;
+  }
+  #text {
+    left: 40px;
+    top: 20px;
+    width: 450px;
+  }
+}
+
+/* Large phones (landscape or wider) */
+@media (max-width: 768px) {
+  #wrap {
+    transform: scale(0.45);
+    transform-origin: center center;
+  }
+  #text {
+    left: 20px;
+    top: 10px;
+    width: 480px;
+  }
+  .hero-typewriter .line-0 { font-size: 2rem; }
+  .hero-typewriter .line-1 { font-size: 2rem; margin-bottom: 0.8rem; }
+  .hero-typewriter .line-2,
+  .hero-typewriter .line-3,
+  .hero-typewriter .line-4,
+  .hero-typewriter .line-5,
+  .hero-typewriter .line-6 { font-size: 1rem; line-height: 1.6; }
+  .hero-typewriter .line-7,
+  .hero-typewriter .line-8,
+  .hero-typewriter .line-9,
+  .hero-typewriter .line-10 { font-size: 1rem; line-height: 1.6; }
+  .hero-typewriter .line-11 { font-size: 0.9rem; margin-top: 0.5rem; }
+  .hero-typewriter .line-12 { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .hero-typewriter .line-13 { font-size: 1.2rem; }
+  .click-hint {
+    bottom: 32px;
+    font-size: 9px;
+  }
+  .scroll-arrow {
+    bottom: 60px;
+  }
+  .birthday-footer {
+    padding: 32px 16px 48px;
+  }
+}
+
+/* Small phones (iPhone SE, 375px etc.) */
+@media (max-width: 480px) {
+  #wrap {
+    transform: scale(0.34);
+    transform-origin: center center;
+  }
+  #text {
+    left: 20px;
+    top: 10px;
+    width: 480px;
+  }
+  .hero-typewriter .line-0 { font-size: 2rem; }
+  .hero-typewriter .line-1 { font-size: 2rem; }
+  .hero-typewriter .line-2,
+  .hero-typewriter .line-3,
+  .hero-typewriter .line-4,
+  .hero-typewriter .line-5,
+  .hero-typewriter .line-6 { font-size: 1rem; line-height: 1.6; }
+  .hero-typewriter .line-7,
+  .hero-typewriter .line-8,
+  .hero-typewriter .line-9,
+  .hero-typewriter .line-10 { font-size: 1rem; line-height: 1.6; }
+  .click-hint {
+    bottom: 24px;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+  }
+  .scroll-arrow {
+    bottom: 44px;
+  }
+  .scroll-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Very small phones (320px) */
+@media (max-width: 360px) {
+  #wrap {
+    transform: scale(0.28);
+  }
+}
+
